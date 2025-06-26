@@ -46,7 +46,6 @@ namespace LMS
             this.profilePicture = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
-            this.panelSettingsMenu = new System.Windows.Forms.Panel();
             this.pnlTopbar = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.lblTopbar = new System.Windows.Forms.Label();
             this.btnDeepseek = new Guna.UI2.WinForms.Guna2ImageButton();
@@ -56,7 +55,6 @@ namespace LMS
             this.pnlSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).BeginInit();
             this.pnlMain.SuspendLayout();
-            this.guna2GradientPanel1.SuspendLayout();
             this.pnlTopbar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -300,8 +298,8 @@ namespace LMS
             // 
             // guna2GradientPanel1
             // 
+            this.guna2GradientPanel1.AutoScroll = true;
             this.guna2GradientPanel1.BorderRadius = 20;
-            this.guna2GradientPanel1.Controls.Add(this.panelSettingsMenu);
             this.guna2GradientPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.guna2GradientPanel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(160)))), ((int)(((byte)(225)))));
             this.guna2GradientPanel1.Location = new System.Drawing.Point(0, 82);
@@ -309,14 +307,7 @@ namespace LMS
             this.guna2GradientPanel1.ShadowDecoration.Parent = this.guna2GradientPanel1;
             this.guna2GradientPanel1.Size = new System.Drawing.Size(945, 568);
             this.guna2GradientPanel1.TabIndex = 3;
-            // 
-            // panelSettingsMenu
-            // 
-            this.panelSettingsMenu.Location = new System.Drawing.Point(790, 20);
-            this.panelSettingsMenu.Name = "panelSettingsMenu";
-            this.panelSettingsMenu.Size = new System.Drawing.Size(0, 0);
-            this.panelSettingsMenu.TabIndex = 0;
-            this.panelSettingsMenu.Visible = false;
+            this.guna2GradientPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2GradientPanel1_Paint);
             // 
             // pnlTopbar
             // 
@@ -397,7 +388,6 @@ namespace LMS
             this.pnlSidebar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).EndInit();
             this.pnlMain.ResumeLayout(false);
-            this.guna2GradientPanel1.ResumeLayout(false);
             this.pnlTopbar.ResumeLayout(false);
             this.pnlTopbar.PerformLayout();
             this.ResumeLayout(false);
@@ -422,7 +412,6 @@ namespace LMS
         private Guna.UI2.WinForms.Guna2CirclePictureBox profilePicture;
         private System.Windows.Forms.Panel pnlMain;
         private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel1;
-        private System.Windows.Forms.Panel panelSettingsMenu;
         private Guna.UI2.WinForms.Guna2GradientPanel pnlTopbar;
         private System.Windows.Forms.Label lblTopbar;
         private Guna.UI2.WinForms.Guna2ImageButton btnDeepseek;

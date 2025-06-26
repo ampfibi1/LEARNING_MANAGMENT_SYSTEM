@@ -147,12 +147,13 @@ namespace LMS
             // 
             this.checkBox_hvlogin.BackColor = System.Drawing.Color.Transparent;
             this.checkBox_hvlogin.CheckedState.Image = global::LMS.Properties.Resources.icons8_visible_50;
-            this.checkBox_hvlogin.CheckedState.ImageSize = new System.Drawing.Size(30, 30);
+            this.checkBox_hvlogin.CheckedState.ImageSize = new System.Drawing.Size(25, 25);
             this.checkBox_hvlogin.CheckedState.Parent = this.checkBox_hvlogin;
+            this.checkBox_hvlogin.HoverState.ImageSize = new System.Drawing.Size(25, 25);
             this.checkBox_hvlogin.HoverState.Parent = this.checkBox_hvlogin;
             this.checkBox_hvlogin.Image = global::LMS.Properties.Resources.icons8_hide_50;
-            this.checkBox_hvlogin.ImageSize = new System.Drawing.Size(30, 30);
-            this.checkBox_hvlogin.Location = new System.Drawing.Point(335, 271);
+            this.checkBox_hvlogin.ImageSize = new System.Drawing.Size(25, 25);
+            this.checkBox_hvlogin.Location = new System.Drawing.Point(333, 271);
             this.checkBox_hvlogin.Name = "checkBox_hvlogin";
             this.checkBox_hvlogin.PressedState.Parent = this.checkBox_hvlogin;
             this.checkBox_hvlogin.Size = new System.Drawing.Size(39, 48);
@@ -345,12 +346,12 @@ namespace LMS
             // 
             this.checkBox_reg_cPass.BackColor = System.Drawing.Color.Transparent;
             this.checkBox_reg_cPass.CheckedState.Image = global::LMS.Properties.Resources.icons8_visible_50;
-            this.checkBox_reg_cPass.CheckedState.ImageSize = new System.Drawing.Size(30, 30);
+            this.checkBox_reg_cPass.CheckedState.ImageSize = new System.Drawing.Size(25, 25);
             this.checkBox_reg_cPass.CheckedState.Parent = this.checkBox_reg_cPass;
             this.checkBox_reg_cPass.HoverState.Parent = this.checkBox_reg_cPass;
             this.checkBox_reg_cPass.Image = global::LMS.Properties.Resources.icons8_hide_50;
-            this.checkBox_reg_cPass.ImageSize = new System.Drawing.Size(30, 30);
-            this.checkBox_reg_cPass.Location = new System.Drawing.Point(334, 332);
+            this.checkBox_reg_cPass.ImageSize = new System.Drawing.Size(25, 25);
+            this.checkBox_reg_cPass.Location = new System.Drawing.Point(330, 332);
             this.checkBox_reg_cPass.Name = "checkBox_reg_cPass";
             this.checkBox_reg_cPass.PressedState.Parent = this.checkBox_reg_cPass;
             this.checkBox_reg_cPass.Size = new System.Drawing.Size(39, 48);
@@ -362,12 +363,12 @@ namespace LMS
             // 
             this.checkBox_reg_pass.BackColor = System.Drawing.Color.Transparent;
             this.checkBox_reg_pass.CheckedState.Image = global::LMS.Properties.Resources.icons8_visible_50;
-            this.checkBox_reg_pass.CheckedState.ImageSize = new System.Drawing.Size(30, 30);
+            this.checkBox_reg_pass.CheckedState.ImageSize = new System.Drawing.Size(25, 25);
             this.checkBox_reg_pass.CheckedState.Parent = this.checkBox_reg_pass;
             this.checkBox_reg_pass.HoverState.Parent = this.checkBox_reg_pass;
             this.checkBox_reg_pass.Image = global::LMS.Properties.Resources.icons8_hide_50;
-            this.checkBox_reg_pass.ImageSize = new System.Drawing.Size(30, 30);
-            this.checkBox_reg_pass.Location = new System.Drawing.Point(333, 275);
+            this.checkBox_reg_pass.ImageSize = new System.Drawing.Size(25, 25);
+            this.checkBox_reg_pass.Location = new System.Drawing.Point(330, 275);
             this.checkBox_reg_pass.Name = "checkBox_reg_pass";
             this.checkBox_reg_pass.PressedState.Parent = this.checkBox_reg_pass;
             this.checkBox_reg_pass.Size = new System.Drawing.Size(39, 48);

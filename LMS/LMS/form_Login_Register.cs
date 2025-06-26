@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Data.SqlClient;
+using System.IO;
 using System.Windows.Forms;
 
 namespace LMS
 {
     public partial class form_Login_Register : BaseForm
     {
+        private string connString = @"Data Source=ABDULLAH-TAMJID\SQLEXPRESS01;Initial Catalog=LMS_TEST;Integrated Security=True";
+
         public form_Login_Register()
         {
             InitializeComponent();
@@ -128,21 +132,43 @@ namespace LMS
         // Login Logic
         private void PerformLogin()
         {
-            string username = txtUserName.Text.Trim();
-            string password = txtPassword.Text.Trim();
+            string user_name = txtUserName.Text;
+            string password = txtPassword.Text;
 
-            if (username == "user" && password == "user")
+
+            if (string.IsNullOrEmpty(user_name) || string.IsNullOrEmpty(password) )
             {
-                OpenDashboard(new User_Dashboard());
+                MessageBox.Show("fill all field.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
-            else if (username == "admin" && password == "admin")
+            ClearAllFields();
+
+            try
             {
-                OpenDashboard(new Admin_Dashboard());
+                SqlConnection con = new SqlConnection(connString);
+                con.Open();
+                string query = $"select id,role from user_info where user_name='{user_name}' and password='{password}'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    int role = (int)reader["role"];
+                    int userId = (int)reader["id"];
+
+
+                    if (role == 0) OpenDashboard(new User_Dashboard(userId));
+                    else OpenDashboard(new Admin_Dashboard());
+                }
+                else
+                {
+                    MessageBox.Show("invalid user and password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                con.Close();
             }
-            else
+            catch (Exception e)
             {
-                MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                MessageBox.Show(e.Message);
+            }    
         }
 
         // Open Dashboard
@@ -178,8 +204,62 @@ namespace LMS
         // Register Logic
         private void PerformRegister()
         {
+            string user_name = txtRegisterUser.Text; 
+            string gmail = txtRegisterGmail.Text; 
+            string password = txtRegisterPassword.Text;
+            string confirm_password = txtRegisterCPassword.Text;
+
+            if (password != confirm_password)
+            {
+                MessageBox.Show("password and confirm pass not same.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else if(string.IsNullOrEmpty(user_name) || string.IsNullOrEmpty(gmail) ||
+                string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirm_password))
+            {
+                MessageBox.Show("fill all field.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             ClearRegisterFields();
-            MessageBox.Show("Registration logic not implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string defaultImagePath = @"P:\LMS\LMS\Resources\unnamed.png";
+            byte[] img;
+
+            if (!File.Exists(defaultImagePath))
+            {
+                MessageBox.Show("Default image not found.");
+                return;
+            }
+            
+            try
+            {
+                FileStream stream = new FileStream(defaultImagePath, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(stream);
+                img = br.ReadBytes((int)stream.Length);
+
+                SqlConnection con = new SqlConnection(connString);
+                con.Open();
+
+                string query = $"insert into user_info (user_name,gmail,password,profile_pic) values('{user_name}','{gmail}','{password}',@pic)";
+                SqlCommand cmd = new SqlCommand(query,con);
+                cmd.Parameters.AddWithValue("@pic", img);
+
+                int res = cmd.ExecuteNonQuery();
+                if (res > 0)
+                {
+                    MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearRegisterFields();
+                }
+                else
+                {
+                    MessageBox.Show("Registration failed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                con.Close();
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         private void checkBox_hvlogin_CheckedChanged_1(object sender, EventArgs e)
