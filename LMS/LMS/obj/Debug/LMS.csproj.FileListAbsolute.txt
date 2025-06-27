@@ -27,7 +27,6 @@ P:\LMS\LMS\obj\Debug\LMS.exe
 P:\LMS\LMS\obj\Debug\LMS.pdb
 P:\LMS\LMS\bin\Debug\Newtonsoft.Json.dll
 P:\LMS\LMS\bin\Debug\Newtonsoft.Json.xml
-P:\LMS\LMS\obj\Debug\LMS.csproj.AssemblyReference.cache
 P:\TESTLMS\LMS\LMS\obj\Debug\LMS.Admin_Dashboard.resources
 P:\TESTLMS\LMS\LMS\obj\Debug\LMS.form_Login_Register.resources
 P:\TESTLMS\LMS\LMS\obj\Debug\LMS.Properties.Resources.resources
@@ -44,3 +43,8 @@ P:\TESTLMS\LMS\LMS\bin\Debug\Newtonsoft.Json.dll
 P:\TESTLMS\LMS\LMS\bin\Debug\Newtonsoft.Json.xml
 P:\TESTLMS\LMS\LMS\obj\Debug\LMS.csproj.CopyComplete
 P:\TESTLMS\LMS\LMS\obj\Debug\LMS.csproj.AssemblyReference.cache
+P:\LMS\LMS\bin\Debug\EntityFramework.dll
+P:\LMS\LMS\bin\Debug\EntityFramework.SqlServer.dll
+P:\LMS\LMS\bin\Debug\EntityFramework.xml
+P:\LMS\LMS\bin\Debug\EntityFramework.SqlServer.xml
+P:\LMS\LMS\obj\Debug\LMS.csproj.AssemblyReference.cache

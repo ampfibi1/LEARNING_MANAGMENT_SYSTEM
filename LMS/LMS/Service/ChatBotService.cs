@@ -14,8 +14,7 @@ namespace LMS.Services
 
         public ChatBotService()
         {
-            this.apiKey = "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";
-          
+            this.apiKey = "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";
             this.client = new HttpClient();
         }
 

@@ -157,7 +157,7 @@ namespace LMS
 
 
                     if (role == 0) OpenDashboard(new User_Dashboard(userId));
-                    else OpenDashboard(new Admin_Dashboard());
+                    else OpenDashboard(new Admin_Dashboard(userId));
                 }
                 else
                 {

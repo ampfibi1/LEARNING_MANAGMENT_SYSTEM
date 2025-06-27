@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LMS_TESTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="materials">
+          <Key>
+            <PropertyRef Name="m_id" />
+          </Key>
+          <Property Name="m_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="file_name" Type="varchar" MaxLength="500" />
+          <Property Name="course_name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="file_path" Type="varbinary(max)" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="notes">
+          <Key>
+            <PropertyRef Name="notes_id" />
+          </Key>
+          <Property Name="notes_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="file_name" Type="varchar" MaxLength="500" />
+          <Property Name="course_name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="pdf_file" Type="varbinary(max)" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="gmail" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="role" Type="int" Nullable="false" />
+          <Property Name="profile_pic" Type="varbinary(max)" />
+          <Property Name="display_mode" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_materials_user_info">
+          <End Role="user_info" Type="Self.user_info" Multiplicity="1" />
+          <End Role="materials" Type="Self.materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="materials">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_notes_user_info">
+          <End Role="user_info" Type="Self.user_info" Multiplicity="1" />
+          <End Role="notes" Type="Self.notes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notes">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LMS_TESTModelStoreContainer">
+          <EntitySet Name="materials" EntityType="Self.materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notes" EntityType="Self.notes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_info" EntityType="Self.user_info" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_materials_user_info" Association="Self.FK_materials_user_info">
+            <End Role="user_info" EntitySet="user_info" />
+            <End Role="materials" EntitySet="materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_notes_user_info" Association="Self.FK_notes_user_info">
+            <End Role="user_info" EntitySet="user_info" />
+            <End Role="notes" EntitySet="notes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LMS_TESTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="note">
+          <Key>
+            <PropertyRef Name="notes_id" />
+          </Key>
+          <Property Name="notes_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="file_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="course_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pdf_file" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user_info" Relationship="Self.FK_notes_user_info" FromRole="notes" ToRole="user_info" />
+        </EntityType>
+        <EntityType Name="user_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gmail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="role" Type="Int32" Nullable="false" />
+          <Property Name="profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="display_mode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="notes" Relationship="Self.FK_notes_user_info" FromRole="user_info" ToRole="notes" />
+          <NavigationProperty Name="materials" Relationship="LMS_TESTModel.FK_materials_user_info" FromRole="user_info" ToRole="material" />
+        </EntityType>
+        <Association Name="FK_notes_user_info">
+          <End Role="user_info" Type="Self.user_info" Multiplicity="1" />
+          <End Role="notes" Type="Self.note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notes">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LMS_TESTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="notes" EntityType="Self.note" />
+          <EntitySet Name="user_info" EntityType="Self.user_info" />
+          <AssociationSet Name="FK_notes_user_info" Association="Self.FK_notes_user_info">
+            <End Role="user_info" EntitySet="user_info" />
+            <End Role="notes" EntitySet="notes" />
+          </AssociationSet>
+          <EntitySet Name="materials" EntityType="LMS_TESTModel.material" />
+          <AssociationSet Name="FK_materials_user_info" Association="LMS_TESTModel.FK_materials_user_info">
+            <End Role="user_info" EntitySet="user_info" />
+            <End Role="material" EntitySet="materials" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="material">
+          <Key>
+            <PropertyRef Name="m_id" />
+          </Key>
+          <Property Name="m_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="file_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="course_name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="file_path" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user_info" Relationship="LMS_TESTModel.FK_materials_user_info" FromRole="material" ToRole="user_info" />
+        </EntityType>
+        <Association Name="FK_materials_user_info">
+          <End Type="LMS_TESTModel.user_info" Role="user_info" Multiplicity="1" />
+          <End Type="LMS_TESTModel.material" Role="material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="material">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LMS_TESTModelStoreContainer" CdmEntityContainer="LMS_TESTEntities">
+          <EntitySetMapping Name="notes">
+            <EntityTypeMapping TypeName="LMS_TESTModel.note">
+              <MappingFragment StoreEntitySet="notes">
+                <ScalarProperty Name="notes_id" ColumnName="notes_id" />
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="course_name" ColumnName="course_name" />
+                <ScalarProperty Name="pdf_file" ColumnName="pdf_file" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_info">
+            <EntityTypeMapping TypeName="LMS_TESTModel.user_info">
+              <MappingFragment StoreEntitySet="user_info">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="gmail" ColumnName="gmail" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="profile_pic" ColumnName="profile_pic" />
+                <ScalarProperty Name="display_mode" ColumnName="display_mode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="materials">
+            <EntityTypeMapping TypeName="LMS_TESTModel.material">
+              <MappingFragment StoreEntitySet="materials">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="file_path" ColumnName="file_path" />
+                <ScalarProperty Name="course_name" ColumnName="course_name" />
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="m_id" ColumnName="m_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

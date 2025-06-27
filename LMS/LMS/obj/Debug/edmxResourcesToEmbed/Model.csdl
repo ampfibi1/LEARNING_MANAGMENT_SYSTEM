@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LMS_TESTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="note">
+    <Key>
+      <PropertyRef Name="notes_id" />
+    </Key>
+    <Property Name="notes_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="file_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="course_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="pdf_file" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="user_info" Relationship="Self.FK_notes_user_info" FromRole="notes" ToRole="user_info" />
+  </EntityType>
+  <EntityType Name="user_info">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gmail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="role" Type="Int32" Nullable="false" />
+    <Property Name="profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="display_mode" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="notes" Relationship="Self.FK_notes_user_info" FromRole="user_info" ToRole="notes" />
+    <NavigationProperty Name="materials" Relationship="LMS_TESTModel.FK_materials_user_info" FromRole="user_info" ToRole="material" />
+  </EntityType>
+  <Association Name="FK_notes_user_info">
+    <End Role="user_info" Type="Self.user_info" Multiplicity="1" />
+    <End Role="notes" Type="Self.note" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_info">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="notes">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LMS_TESTEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="notes" EntityType="Self.note" />
+    <EntitySet Name="user_info" EntityType="Self.user_info" />
+    <AssociationSet Name="FK_notes_user_info" Association="Self.FK_notes_user_info">
+      <End Role="user_info" EntitySet="user_info" />
+      <End Role="notes" EntitySet="notes" />
+    </AssociationSet>
+    <EntitySet Name="materials" EntityType="LMS_TESTModel.material" />
+    <AssociationSet Name="FK_materials_user_info" Association="LMS_TESTModel.FK_materials_user_info">
+      <End Role="user_info" EntitySet="user_info" />
+      <End Role="material" EntitySet="materials" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="material">
+    <Key>
+      <PropertyRef Name="m_id" />
+    </Key>
+    <Property Name="m_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="file_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="course_name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="file_path" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="user_info" Relationship="LMS_TESTModel.FK_materials_user_info" FromRole="material" ToRole="user_info" />
+  </EntityType>
+  <Association Name="FK_materials_user_info">
+    <End Type="LMS_TESTModel.user_info" Role="user_info" Multiplicity="1" />
+    <End Type="LMS_TESTModel.material" Role="material" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_info">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="material">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
